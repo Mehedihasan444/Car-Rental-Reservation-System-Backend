@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 import { BookingModel, TBooking } from "./booking.interface";
 
 const bookingSchema = new Schema<TBooking, BookingModel>({
@@ -15,25 +15,27 @@ const bookingSchema = new Schema<TBooking, BookingModel>({
     type: Schema.Types.ObjectId,
     required: [true, "User id is required"],
     unique: true,
-    ref: "user",
+    ref: "User",
   },
   car: {
     type: Schema.Types.ObjectId,
     required: [true, "Car id is required"],
     unique: true,
-    ref: "car",
+    ref: "Car",
   },
   startTime: {
-    type: Date,
+    type: String,
     required: true,
   },
   endTime: {
-    type: Date,
+    type: String,
     required: true,
+    default:null
   },
   totalCost: {
     type: Number,
     required: true,
+    default:0
   },
   isBooked: {
     type: String,
@@ -41,6 +43,8 @@ const bookingSchema = new Schema<TBooking, BookingModel>({
     default: "unconfirmed",
     required: true,
   },
+},{
+  timestamps: true,
 });
 
-export default bookingSchema;
+export const Booking = model<TBooking>("Booking",bookingSchema)

@@ -6,8 +6,8 @@ export interface TBooking {
     date: Date;
     user: Types.ObjectId;
     car: Types.ObjectId;
-    startTime: Date;
-    endTime: Date;
+    startTime: string;
+    endTime: string;
     totalCost: number;
     isBooked: "unconfirmed" | "confirmed";
   }

@@ -12,8 +12,14 @@ const getAllBookings = async () => {
     return result;
   };
 
-
+  const getABooking = async (id: string) => {
+    const result = await Booking.findById(id)
+      .populate('user')
+      .populate("car");
+    return result;
+  };
   export const BookingServices={
     getAllBookings,
     createBooking,
+    getABooking
   }

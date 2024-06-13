@@ -2,11 +2,7 @@ import { Schema, model } from "mongoose";
 import { BookingModel, TBooking } from "./booking.interface";
 
 const bookingSchema = new Schema<TBooking, BookingModel>({
-  id: {
-    type: String,
-    required: [true, "ID is required"],
-    unique: true,
-  },
+
   date: {
     type: Date,
     required: true,
@@ -29,19 +25,16 @@ const bookingSchema = new Schema<TBooking, BookingModel>({
   },
   endTime: {
     type: String,
-    required: true,
     default:null
   },
   totalCost: {
     type: Number,
-    required: true,
     default:0
   },
   isBooked: {
     type: String,
     enum: ["unconfirmed", "confirmed"],
     default: "unconfirmed",
-    required: true,
   },
 },{
   timestamps: true,

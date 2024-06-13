@@ -9,13 +9,13 @@ const router = express.Router();
 
 router.post(
   '/login',
-  validateRequest(AuthValidation.loginValidationSchema),
+  // validateRequest(AuthValidation.loginValidationSchema),
   AuthControllers.loginUser,
 );
 
 router.post(
   '/refresh-token',
-  validateRequest(AuthValidation.refreshTokenValidationSchema),
+  // validateRequest(AuthValidation.refreshTokenValidationSchema),
   AuthControllers.refreshToken,
 );
 

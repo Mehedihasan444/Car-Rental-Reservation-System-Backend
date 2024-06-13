@@ -5,19 +5,19 @@ import { UserServices } from './user.service';
 
 
 
-const createAdmin = catchAsync(async (req, res) => {
-  const { password, admin: adminData } = req.body;
+const createUser = catchAsync(async (req, res) => {
 
-  const result = await UserServices.createAdminIntoDB(password, adminData);
+
+  const result = await UserServices.createUser(req.body);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Admin is created succesfully',
+    message: 'User is created successfully',
     data: result,
   });
 });
 
 export const UserControllers = {
-  createAdmin,
+  createUser
 };

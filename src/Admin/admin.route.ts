@@ -1,5 +1,5 @@
 import express from 'express';
-import validateRequest from '../../middlewares/validateRequest';
+// import validateRequest from '../../middlewares/validateRequest';
 import { AdminControllers } from './admin.controller';
 import { updateAdminValidationSchema } from './admin.validation';
 
@@ -11,7 +11,7 @@ router.get('/:id', AdminControllers.getSingleAdmin);
 
 router.patch(
   '/:id',
-  validateRequest(updateAdminValidationSchema),
+  // validateRequest(updateAdminValidationSchema),
   AdminControllers.updateAdmin,
 );
 

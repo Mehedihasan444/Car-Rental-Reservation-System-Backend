@@ -18,6 +18,10 @@ const moduleRoutes = [
     path: '/bookings',
     route: BookingRoutes,
   },
+  {
+    path: '/bookings',
+    route: BookingRoutes,
+  },
   // {
   //   path: '/auth',
   //   route: AuthRoutes,

@@ -9,14 +9,12 @@ const bookingSchema = new Schema<TBooking, BookingModel>({
   },
   user: {
     type: Schema.Types.ObjectId,
-    required: [true, "User id is required"],
-    unique: true,
+    // required: [true, "User id is required"],
     ref: "User",
   },
   car: {
     type: Schema.Types.ObjectId,
     required: [true, "Car id is required"],
-    unique: true,
     ref: "Car",
   },
   startTime: {

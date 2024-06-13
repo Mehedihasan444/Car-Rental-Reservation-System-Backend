@@ -1,5 +1,5 @@
-import { Car } from "./car.model";
-import { TCar } from "./cart.interface";
+import { Car, CarReturn } from "./car.model";
+import { TCar } from "./car.interface";
 
 // create a new car in the database
 const createCar = async (payload: TCar) => {
@@ -33,6 +33,15 @@ const getAllCars = async () => {
   const result = await Car.find();
   return result;
 };
+const returnTheCar = async (bookingId: string, updateData: any) => {
+
+  const result = await CarReturn.findByIdAndUpdate(
+      bookingId,
+    { $set: updateData },
+    { new: true }
+  );
+  return result;
+};
 
 export const CarServices = {
   createCar,
@@ -40,4 +49,5 @@ export const CarServices = {
   updateACar,
   deleteACar,
   getAllCars,
+  returnTheCar
 };

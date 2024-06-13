@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
-import { CarModel, TCar } from "./cart.interface";
+import { CarModel, CarReturnModel, TCar, TCarReturn } from "./car.interface";
+import { Booking } from "../booking/booking.model";
 
 const carSchema = new Schema<TCar, CarModel>(
   {
@@ -42,7 +43,6 @@ const carSchema = new Schema<TCar, CarModel>(
     timestamps: true,
   }
 );
-
 carSchema.pre("save", async function (next) {
   const isCarExists = await Car.findOne({ name: this.name });
   
@@ -72,4 +72,27 @@ carSchema.pre("aggregate", function (next) {
 //   return existingCar;
 // };
 
+const carReturnSchema  = new Schema<TCarReturn,CarReturnModel>(
+  {
+      bookingId:{
+          type:Schema.Types.ObjectId,
+          required:[true, "Required bookingId"]
+      },
+      endTime:{
+          type:String,
+          required:[true, "Required endTime"]
+      }
+  }
+)
+
+carReturnSchema.pre("save", async function (next) {
+  const isBookingExists = await Booking.findOne({ _id: this.bookingId });
+  
+  if (!isBookingExists) {
+    throw new Error('Booking is not exists !');
+  }
+  next();
+});
+
 export const Car = model<TCar, CarModel>("Car", carSchema);
+export const CarReturn = model<TCarReturn, CarReturnModel>("Car", carReturnSchema);

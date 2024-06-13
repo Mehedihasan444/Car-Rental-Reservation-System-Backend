@@ -1,9 +1,9 @@
 import express from 'express';
-import auth from '../../middlewares/auth';
-import validateRequest from '../../middlewares/validateRequest';
-import { USER_ROLE } from './../user/user.constant';
-import { AuthControllers } from './auth.controller';
-import { AuthValidation } from './auth.validation';
+import auth from '../../../middlewares/auth';
+import validateRequest from '../../../middlewares/validateRequest';
+import { USER_ROLE } from '../../user/user.constant';
+import { AuthControllers } from './auth.signin.controller';
+import { AuthValidation } from './auth.signin.validation';
 
 const router = express.Router();
 

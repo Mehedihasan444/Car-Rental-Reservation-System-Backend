@@ -1,34 +1,13 @@
 import { z } from "zod";
 
 export const BookingValidationSchema = z.object({
-
-    id: z.string(),
     date: z.date(),
-    user: z.object({
-      id: z.string(),
-      name: z.string(),
-      email: z.string(),
-      phone: z.string(),
-      address: z.string(),
-      profileImg: z.string(),
-      isDeleted: z.boolean(),
-      isAdmin: z.boolean(),
-    }),
-    car: z.object({
-      id: z.string(),
-      name: z.string(),
-      description: z.string(),
-      color: z.string(),
-      isElectric: z.boolean(),
-      status: z.enum(['available', 'unavailable']),
-      features: z.array(z.string()),
-      pricePerHour: z.number(),
-      isDeleted: z.boolean(),
-    }),
+    user: z.string().optional(),
+    car: z.string(),
     startTime: z.date(),
-    endTime: z.date(),
-    totalCost: z.number(),
-    isBooked: z.enum(["unconfirmed", "confirmed"]),
+    endTime: z.date().optional(),
+    totalCost: z.number().optional(),
+    isBooked: z.enum(["unconfirmed", "confirmed"]).optional(),
   })
 
 

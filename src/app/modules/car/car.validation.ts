@@ -6,7 +6,7 @@ const carValidationSchema = z.object({
     description: z.string(),
     color: z.string(),
     isElectric: z.boolean(),
-    status: z.enum(["available", "unavailable"]),
+    status: z.enum(["available", "unavailable"]).optional(),
     features: z.array(z.string()),
     pricePerHour: z.number(),
     isDeleted: z.boolean().optional(),

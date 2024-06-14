@@ -24,7 +24,7 @@ const carSchema = new Schema<TCar, CarModel>(
     status: {
       type: String,
       enum: ["available", "unavailable"],
-      required: true,
+      default: "available",
     },
     features: {
       type: [String],
@@ -95,4 +95,4 @@ carReturnSchema.pre("save", async function (next) {
 });
 
 export const Car = model<TCar, CarModel>("Car", carSchema);
-export const CarReturn = model<TCarReturn, CarReturnModel>("Car", carReturnSchema);
+export const CarReturn = model<TCarReturn, CarReturnModel>("CarReturn", carReturnSchema);

@@ -1,18 +1,25 @@
+import { z } from "zod";
 
-import { z } from 'zod';
-
-export const UserValidationSchema = z.object({
-  name: z.string().nonempty('Name is required'),
-  email: z.string().email('Invalid email address'),
-  role: z.enum(['user', 'admin'], {
-    invalid_type_error: 'Role must be either "user" or "admin"',
+export const signUpUserValidationSchema = z.object({
+  body: z.object({
+    name: z.string(),
+    email: z.string(),
+    role: z.enum(["user", "admin"], {
+      invalid_type_error: 'Role must be either "user" or "admin"',
+    }),
+    password: z.string(),
+    phone: z.string(),
+    address: z.string(),
   }),
-  password: z.string().min(6, 'Password must be at least 6 characters long'),
-  phone: z.string().optional(),
-  address: z.string().optional(),
+});
+export const signInUserValidationSchema = z.object({
+  body: z.object({
+    email: z.string(),
+    password: z.string(),
+  }),
 });
 
-
 export const UserValidation = {
-  UserValidationSchema,
+  signUpUserValidationSchema,
+  signInUserValidationSchema
 };

@@ -7,7 +7,11 @@ import { BookingServices } from "./booking.service";
 //Create Booking
 const createBooking: RequestHandler = async (req, res) => {
   const bookingData = req.body;
-  const result = await BookingServices.createBooking(bookingData);
+  const newData={
+    ...bookingData,
+    user:req.user
+  }
+  const result = await BookingServices.createBooking(newData);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -18,7 +22,8 @@ const createBooking: RequestHandler = async (req, res) => {
 };
 //get all Booking
 const getAllBookings: RequestHandler = catchAsync(async (req, res) => {
-  const result = await BookingServices.getAllBookings();
+  const queryData= req.query
+  const result = await BookingServices.getAllBookings(queryData);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -28,9 +33,9 @@ const getAllBookings: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 //get a Booking
-const getABooking = catchAsync(async (req, res) => {
-  const { id } = req.params;
-  const result = await BookingServices.getABooking(id);
+const getUsersBooking = catchAsync(async (req, res) => {
+  const { email } = req.user;
+  const result = await BookingServices.getUsersBooking(email);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -43,5 +48,5 @@ const getABooking = catchAsync(async (req, res) => {
 export const BookingControllers = {
   createBooking,
   getAllBookings,
-  getABooking,
+  getUsersBooking,
 };

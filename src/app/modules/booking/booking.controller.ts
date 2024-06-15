@@ -50,7 +50,6 @@ const getUsersBooking = catchAsync(async (req, res) => {
 });
 const returnTheCar: RequestHandler =catchAsync( async (req, res) => {
   const updateData = req.body;
-  console.log('hi',updateData)
   const result = await BookingServices.returnTheCar( updateData );
   sendResponse(res, {
     statusCode: httpStatus.OK,

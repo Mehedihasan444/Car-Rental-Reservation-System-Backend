@@ -19,7 +19,7 @@ const createBooking: RequestHandler = async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Booking is created successfully",
+    message: "Car booked successfully",
     data: result,
   });
 };
@@ -31,7 +31,7 @@ const getAllBookings: RequestHandler = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Booking are retrieved successfully",
+    message: "Bookings are retrieved successfully",
     data: result,
   });
 });
@@ -44,7 +44,7 @@ const getUsersBooking = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Booking is retrieved succesfully",
+    message: "Bookings are retrieved successfully",
     data: result,
   });
 });

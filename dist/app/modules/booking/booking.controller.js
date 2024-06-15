@@ -27,7 +27,7 @@ const createBooking = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: "Booking is created successfully",
+        message: "Car booked successfully",
         data: result,
     });
 });
@@ -38,7 +38,7 @@ const getAllBookings = (0, catchAsync_1.default)((req, res) => __awaiter(void 0,
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: "Booking are retrieved successfully",
+        message: "Bookings are retrieved successfully",
         data: result,
     });
 }));
@@ -49,7 +49,7 @@ const getUsersBooking = (0, catchAsync_1.default)((req, res) => __awaiter(void 0
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: "Booking is retrieved succesfully",
+        message: "Bookings are retrieved successfully",
         data: result,
     });
 }));

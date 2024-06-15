@@ -15,7 +15,7 @@ app.use(cors({ origin: ["http://localhost:5173"] }));
 // application routes
 app.use("/api", router);
 app.get("/", (req, res) => {
-  res.send("Backend is running");
+  res.send("Car rental reservation system is running");
 });
 
 app.use(globalErrorHandler);

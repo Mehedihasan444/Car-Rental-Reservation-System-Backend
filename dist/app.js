@@ -17,7 +17,7 @@ app.use((0, cors_1.default)({ origin: ["http://localhost:5173"] }));
 // application routes
 app.use("/api", routes_1.default);
 app.get("/", (req, res) => {
-    res.send("Backend is running");
+    res.send("Car rental reservation system is running");
 });
 app.use(globalErrorhandler_1.default);
 //Not Found

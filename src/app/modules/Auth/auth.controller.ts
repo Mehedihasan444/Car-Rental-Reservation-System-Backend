@@ -16,21 +16,23 @@ const signup = catchAsync(async (req, res) => {
 });
 
 const signin = catchAsync(async (req, res) => {
-  const { user,accessToken, refreshToken } = await AuthServices.signin(req.body);
+  const { user, accessToken, refreshToken } = await AuthServices.signin(
+    req.body
+  );
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: config.NODE_ENV === "production",
   });
 
-  sendResponse(res,{
+  sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: "User logged in successfully!",
     data: {
-...user
+      ...user.toObject()
     },
-    accessToken : accessToken.split(" ")[1]
+    accessToken: accessToken.split(" ")[1],
   });
 });
 

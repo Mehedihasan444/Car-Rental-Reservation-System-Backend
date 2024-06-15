@@ -37,8 +37,8 @@ const signin = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0,
         statusCode: http_status_1.default.OK,
         success: true,
         message: "User logged in successfully!",
-        data: Object.assign({}, user),
-        accessToken: accessToken.split(" ")[1]
+        data: Object.assign({}, user.toObject()),
+        accessToken: accessToken.split(" ")[1],
     });
 }));
 exports.authControllers = {

@@ -16,7 +16,7 @@ const signup = catchAsync(async (req, res) => {
 });
 
 const signin = catchAsync(async (req, res) => {
-  const { accessToken, refreshToken } = await AuthServices.signin(req.body);
+  const { user,accessToken, refreshToken } = await AuthServices.signin(req.body);
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
@@ -28,8 +28,9 @@ const signin = catchAsync(async (req, res) => {
     success: true,
     message: "User logged in successfully!",
     data: {
-      accessToken: accessToken.split(" ")[1]
+...user
     },
+    accessToken : accessToken.split(" ")[1]
   });
 });
 

@@ -57,6 +57,7 @@ const signin = async (payload: TsigninUser) => {
 const newToken ="Bearer "+accessToken
 accessToken=newToken
   return {
+    user,
     accessToken,
     refreshToken,
   };

@@ -4,7 +4,7 @@ import { TsigninUser } from "./auth.interface";
 import jwt from "jsonwebtoken";
 import config from "../../config";
 import { isPasswordMatched } from "./auth.util";
-import { USER_ROLE } from "../user/user.constant";
+
 
 const signup = async (payload: TUser): Promise<any> => {
   //user existence check

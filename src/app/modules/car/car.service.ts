@@ -1,6 +1,5 @@
 import { Car } from "./car.model";
 import { TCar } from "./car.interface";
-import { Booking } from "../booking/booking.model";
 
 // create a new car in the database
 const createCar = async (payload: TCar) => {

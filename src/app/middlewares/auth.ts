@@ -6,7 +6,7 @@ import AppError from "../errors/AppError";
 import { TUserRole } from "../modules/user/user.interface";
 import { User } from "../modules/user/user.model";
 import catchAsync from "../utils/catchAsync";
-import { USER_ROLE } from "../modules/user/user.constant";
+
 
 const auth = (...requiredRoles: TUserRole[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -22,10 +22,13 @@ const auth = (...requiredRoles: TUserRole[]) => {
       token,
       config.jwt_access_secret as string
     ) as JwtPayload;
-    const { role, userEmail, iat } = decoded;
+    const { role, userEmail } = decoded;
 
     // checking if the user is exist
     const user = await User.isUserExistsByEmail(userEmail);
+    if (!user) {
+      throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
+    }
     if (requiredRoles && !requiredRoles.includes(role)) {
       throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized !");
     }

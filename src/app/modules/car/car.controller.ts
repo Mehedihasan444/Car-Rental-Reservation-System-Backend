@@ -1,9 +1,8 @@
-import { Request, RequestHandler, Response } from "express";
-import { CarValidation } from "./car.validation";
-import httpStatus from "http-status";
+import {  RequestHandler } from "express";
 import sendResponse from "../../utils/sendResponse";
 import { CarServices } from "./car.service";
 import catchAsync from "../../utils/catchAsync";
+import httpStatus from "http-status";
 
 //Create Car
 const createCar: RequestHandler = async (req, res) => {

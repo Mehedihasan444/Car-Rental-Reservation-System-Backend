@@ -1,12 +1,9 @@
-import { Types } from "mongoose";
 import { TBooking } from "./booking.interface";
 import  { Booking } from "./booking.model";
-
-
+import { User } from "../user/user.model";
 
 const getAllBookings = async (queryData:any) => {
   const data:any={}
-  
     if (queryData.carId) {
       data.carId = queryData.carId
     }
@@ -16,11 +13,7 @@ const getAllBookings = async (queryData:any) => {
        const result = await Booking.find(data)
      .populate('user')
     .populate("car");;
-    
-  
     return result;
-    
-   
   };
 
 
@@ -35,13 +28,27 @@ const getAllBookings = async (queryData:any) => {
   };
 
   const getUsersBooking = async (email: string) => {
-    const result = await Booking.find({email})
+    const desireUser:any= await User.findOne({email});
+
+    const result = await Booking.find({user: desireUser._id})
       .populate('user')
       .populate("car");
+    return result;
+  };
+
+  const returnTheCar = async ( updateData:any) => {
+    const endTime = updateData.endTime;
+    console.log(updateData)
+    const result = await Booking.findByIdAndUpdate(
+      updateData?.bookingId,
+    { $set: {endTime}},
+      { new: true }
+    );
     return result;
   };
   export const BookingServices={
     getAllBookings,
     createBooking,
-    getUsersBooking
+    getUsersBooking,
+    returnTheCar
   }

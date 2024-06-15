@@ -1,16 +1,25 @@
 import { z } from "zod";
 
 export const BookingValidationSchema = z.object({
-    date: z.date(),
+  body:z.object({
+      date: z.string(),
     user: z.string().optional(),
     car: z.string(),
-    startTime: z.date(),
-    endTime: z.date().optional(),
+    startTime: z.string(),
+    endTime: z.string().optional(),
     totalCost: z.number().optional(),
     isBooked: z.enum(["unconfirmed", "confirmed"]).optional(),
   })
-
+  
+  })
+  const carReturnValidationSchema = z.object({
+    body: z.object({
+        bookingId:z.string(),
+        endTime:z.string()
+    })
+    })
 
 export const bookingValidations = {
   BookingValidationSchema,
+  carReturnValidationSchema
 };

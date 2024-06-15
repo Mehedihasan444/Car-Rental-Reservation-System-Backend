@@ -25,14 +25,8 @@ const updateCarValidationSchema = z.object({
   }),
 });
 
-const carReturnValidationSchema = z.object({
-  body: z.object({
-      bookingId:z.string(),
-      endTime:z.string()
-  })
-  })
+
 export const CarValidation = {
   carValidationSchema,
   updateCarValidationSchema,
-  carReturnValidationSchema
 };

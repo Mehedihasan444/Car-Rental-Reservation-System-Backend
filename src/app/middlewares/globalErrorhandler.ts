@@ -32,6 +32,7 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     message = simplifiedError?.message;
     errorSources = simplifiedError?.errorSources;
   } else if (err?.name === 'CastError') {
+ 
     const simplifiedError = handleCastError(err);
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
@@ -63,6 +64,7 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   //ultimate return
   return res.status(statusCode).json({
     success: false,
+    statusCode:statusCode,
     message,
     errorSources,
     err,

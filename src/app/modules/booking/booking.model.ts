@@ -1,11 +1,12 @@
 import { Schema, model } from "mongoose";
-import { BookingModel, TBooking } from "./booking.interface";
+import {  TBooking, TCarReturn } from "./booking.interface";
 
-const bookingSchema = new Schema<TBooking, BookingModel>({
+
+const bookingSchema = new Schema<TBooking>({
 
   date: {
-    type: Date,
-    required: true,
+    type: String,
+    required:  [true, "Date id is required"],
   },
   user: {
     type: Schema.Types.ObjectId,
@@ -19,7 +20,7 @@ const bookingSchema = new Schema<TBooking, BookingModel>({
   },
   startTime: {
     type: String,
-    required: true,
+    required:  [true, "startTime id is required"],
   },
   endTime: {
     type: String,
@@ -39,3 +40,27 @@ const bookingSchema = new Schema<TBooking, BookingModel>({
 });
 
 export const Booking = model<TBooking>("Booking",bookingSchema)
+// const carReturnSchema  = new Schema<TCarReturn>(
+//   {
+//       bookingId:{
+//           type: Schema.Types.ObjectId,
+//           required:[true, "Required bookingId"],
+//           ref:"Booking"
+//       },
+//       endTime:{
+//           type:String,
+//           required:[true, "Required endTime"]
+//       }
+//   }
+// )
+
+// carSchema.pre("save", async function (next) {
+//   const isBookingExists = await Booking.findById(this.bookingId );
+//   console.log(isBookingExists);
+//   if (!isBookingExists) {
+//     throw new Error('Booking is not exists !');
+//   }
+//   next();
+// });
+
+// export const CarReturn = model<TCarReturn>("CarReturn", carReturnSchema);

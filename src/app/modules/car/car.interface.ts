@@ -12,8 +12,4 @@ export interface TCar {
 }
 export interface CarModel extends Model<TCar> {}
 
-export interface TCarReturn {
-  bookingId: Types.ObjectId;
-  endTime: string;
-}
-export interface CarReturnModel extends Model<TCarReturn> {}
+

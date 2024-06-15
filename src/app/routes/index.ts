@@ -7,17 +7,13 @@ import { AuthRoutes } from '../modules/Auth/auth.route';
 const router = Router();
 
 const moduleRoutes = [
-  {
-    path: '/users',
-    route: UserRoutes,
-  },
+  // {
+  //   path: '/users',
+  //   route: UserRoutes,
+  // },
   {
     path: '/cars',
     route: CarRoutes,
-  },
-  {
-    path: '/bookings',
-    route: BookingRoutes,
   },
   {
     path: '/bookings',

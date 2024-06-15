@@ -3,13 +3,16 @@ import sendResponse from "../../utils/sendResponse";
 import httpStatus from "http-status";
 import catchAsync from "../../utils/catchAsync";
 import { BookingServices } from "./booking.service";
+import { User } from "../user/user.model";
 
 //Create Booking
 const createBooking: RequestHandler = async (req, res) => {
   const bookingData = req.body;
+  const desireUser= await User.findOne({email:req.user.email});
+
   const newData={
     ...bookingData,
-    user:req.user
+    user: desireUser? desireUser._id : null
   }
   const result = await BookingServices.createBooking(newData);
 
@@ -35,6 +38,7 @@ const getAllBookings: RequestHandler = catchAsync(async (req, res) => {
 //get a Booking
 const getUsersBooking = catchAsync(async (req, res) => {
   const { email } = req.user;
+  
   const result = await BookingServices.getUsersBooking(email);
 
   sendResponse(res, {
@@ -44,9 +48,20 @@ const getUsersBooking = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
+const returnTheCar: RequestHandler =catchAsync( async (req, res) => {
+  const updateData = req.body;
+  console.log('hi',updateData)
+  const result = await BookingServices.returnTheCar( updateData );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Car returned successfully",
+    data: result,
+  });
+});
 export const BookingControllers = {
   createBooking,
   getAllBookings,
   getUsersBooking,
+  returnTheCar
 };

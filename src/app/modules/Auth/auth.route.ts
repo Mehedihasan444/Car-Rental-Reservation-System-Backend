@@ -2,7 +2,6 @@ import express from 'express';
 import validateRequest from '../../middlewares/validateRequest';
 import { authControllers } from './auth.controller';
 import { UserValidation } from '../user/user.validation';
-import auth from '../../middlewares/auth';
 
 
 

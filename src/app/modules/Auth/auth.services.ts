@@ -1,5 +1,3 @@
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TUser } from "../user/user.interface";
 import { User } from "../user/user.model";
 import { TsigninUser } from "./auth.interface";
@@ -15,9 +13,6 @@ const signup = async (payload: TUser): Promise<any> => {
   if (user) {
     throw new Error("User already exists");
   }
-
-  //set user role
-  payload.role = USER_ROLE.user;
 
   //create user
   const newUser = await User.create(payload);
@@ -48,7 +43,7 @@ const signin = async (payload: TsigninUser) => {
     role: user.role,
   };
 
-  const accessToken = jwt.sign(jwtPayload, config.jwt_access_secret as string, {
+  let accessToken = jwt.sign(jwtPayload, config.jwt_access_secret as string, {
     expiresIn: config.jwt_access_expires_in,
   });
 
@@ -59,7 +54,8 @@ const signin = async (payload: TsigninUser) => {
       expiresIn: config.jwt_refresh_expires_in,
     }
   );
-
+const newToken ="Bearer "+accessToken
+accessToken=newToken
   return {
     accessToken,
     refreshToken,

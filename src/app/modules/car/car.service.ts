@@ -1,5 +1,6 @@
-import { Car, CarReturn } from "./car.model";
+import { Car } from "./car.model";
 import { TCar } from "./car.interface";
+import { Booking } from "../booking/booking.model";
 
 // create a new car in the database
 const createCar = async (payload: TCar) => {
@@ -8,14 +9,12 @@ const createCar = async (payload: TCar) => {
 };
 // get a single car from the database
 const getACar = async (id: string) => {
-  console.log(id)
   const result = await Car.findById(id);
   return result;
 };
 
 // update a car with a new value
 const updateACar = async (id: string, updateData: any) => {
-
   const result = await Car.findByIdAndUpdate(
     id,
     { $set: updateData },
@@ -33,15 +32,7 @@ const getAllCars = async () => {
   const result = await Car.find();
   return result;
 };
-const returnTheCar = async (bookingId: string, updateData: any) => {
 
-  const result = await CarReturn.findByIdAndUpdate(
-      bookingId,
-    { $set: updateData },
-    { new: true }
-  );
-  return result;
-};
 
 export const CarServices = {
   createCar,
@@ -49,5 +40,5 @@ export const CarServices = {
   updateACar,
   deleteACar,
   getAllCars,
-  returnTheCar
+
 };

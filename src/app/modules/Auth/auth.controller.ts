@@ -28,7 +28,7 @@ const signin = catchAsync(async (req, res) => {
     success: true,
     message: "User logged in successfully!",
     data: {
-      accessToken,
+      accessToken: accessToken.split(" ")[1]
     },
   });
 });

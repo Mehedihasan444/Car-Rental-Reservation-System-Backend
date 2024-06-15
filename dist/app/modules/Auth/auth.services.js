@@ -49,6 +49,7 @@ const signin = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const newToken = "Bearer " + accessToken;
     accessToken = newToken;
     return {
+        user,
         accessToken,
         refreshToken,
     };

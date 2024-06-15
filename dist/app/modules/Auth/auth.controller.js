@@ -28,7 +28,7 @@ const signup = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0,
     });
 }));
 const signin = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { accessToken, refreshToken } = yield auth_services_1.AuthServices.signin(req.body);
+    const { user, accessToken, refreshToken } = yield auth_services_1.AuthServices.signin(req.body);
     res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
         secure: config_1.default.NODE_ENV === "production",
@@ -37,9 +37,8 @@ const signin = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0,
         statusCode: http_status_1.default.OK,
         success: true,
         message: "User logged in successfully!",
-        data: {
-            accessToken: accessToken.split(" ")[1]
-        },
+        data: Object.assign({}, user),
+        accessToken: accessToken.split(" ")[1]
     });
 }));
 exports.authControllers = {

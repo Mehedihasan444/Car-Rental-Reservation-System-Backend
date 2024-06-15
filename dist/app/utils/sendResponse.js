@@ -6,6 +6,7 @@ const sendResponse = (res, data) => {
         statusCode: data === null || data === void 0 ? void 0 : data.statusCode,
         message: data.message,
         data: data.data,
+        accessToken: data.accessToken
     });
 };
 exports.default = sendResponse;

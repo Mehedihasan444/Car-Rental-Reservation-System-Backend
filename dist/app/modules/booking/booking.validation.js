@@ -11,15 +11,15 @@ exports.BookingValidationSchema = zod_1.z.object({
         endTime: zod_1.z.string().optional(),
         totalCost: zod_1.z.number().optional(),
         isBooked: zod_1.z.enum(["unconfirmed", "confirmed"]).optional(),
-    })
+    }),
 });
 const carReturnValidationSchema = zod_1.z.object({
     body: zod_1.z.object({
         bookingId: zod_1.z.string(),
-        endTime: zod_1.z.string()
-    })
+        endTime: zod_1.z.string(),
+    }),
 });
 exports.bookingValidations = {
     BookingValidationSchema: exports.BookingValidationSchema,
-    carReturnValidationSchema
+    carReturnValidationSchema,
 };

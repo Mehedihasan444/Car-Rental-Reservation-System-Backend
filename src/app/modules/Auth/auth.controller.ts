@@ -24,7 +24,7 @@ const signin = catchAsync(async (req, res) => {
     httpOnly: true,
     secure: config.NODE_ENV === "production",
   });
-
+user.password = '';
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

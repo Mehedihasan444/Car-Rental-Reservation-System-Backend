@@ -21,5 +21,5 @@ export const signInUserValidationSchema = z.object({
 
 export const UserValidation = {
   signUpUserValidationSchema,
-  signInUserValidationSchema
+  signInUserValidationSchema,
 };

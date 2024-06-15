@@ -39,20 +39,12 @@ const returnTheCar = async (updateData: TCarReturn) => {
   const endTime = updateData.endTime;
   // get the specific bookings from the database
   const booking: any = await Booking.findById(updateData?.bookingId);
-  // get the specific car from the database
   if (!booking) {
     throw new AppError(httpStatus.NOT_FOUND, "Cannot find booking");
   }
 
-  // // Convert ObjectId to string
-  const objectIdString = booking?.car.toString();
-  // Extract the hexadecimal part
-  const hexString = objectIdString
-    .replace("new ObjectId(", "")
-    .replace(")", "")
-    .replace(/'/g, "");
-
-  const car: any = await Car.findById(hexString);
+  // get the specific car from the database
+  const car: any = await Car.findById(booking?.car);
   if (!car) {
     throw new AppError(httpStatus.NOT_FOUND, "Cannot find car");
   }
@@ -69,7 +61,6 @@ const returnTheCar = async (updateData: TCarReturn) => {
 
   // Calculate the total cost
   const totalCost = hours * car.pricePerHour;
-  console.log(totalCost, hours, car?.pricePerHour);
 
   const result = await Booking.findByIdAndUpdate(
     updateData?.bookingId,

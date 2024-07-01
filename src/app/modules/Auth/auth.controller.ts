@@ -24,15 +24,15 @@ const signin = catchAsync(async (req, res) => {
     httpOnly: true,
     secure: config.NODE_ENV === "production",
   });
-user.password = '';
+  user.password = "";
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: "User logged in successfully!",
     data: {
-      ...user.toObject()
+      ...user.toObject(),
     },
-    accessToken: accessToken.split(" ")[1],
+    token: accessToken.split(" ")[1],
   });
 });
 

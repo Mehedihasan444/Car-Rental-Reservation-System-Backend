@@ -13,7 +13,7 @@ const getACar = async (id: string) => {
 };
 
 // update a car with a new value
-const updateACar = async (id: string, updateData: any) => {
+const updateACar = async (id: string, updateData: Record<string, unknown>) => {
   const result = await Car.findByIdAndUpdate(
     id,
     { $set: updateData },
@@ -32,12 +32,10 @@ const getAllCars = async () => {
   return result;
 };
 
-
 export const CarServices = {
   createCar,
   getACar,
   updateACar,
   deleteACar,
   getAllCars,
-
 };

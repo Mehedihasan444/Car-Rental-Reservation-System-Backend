@@ -7,11 +7,10 @@ import { TUserRole } from "../modules/user/user.interface";
 import { User } from "../modules/user/user.model";
 import catchAsync from "../utils/catchAsync";
 
-
 const auth = (...requiredRoles: TUserRole[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
-   
+
     // checking if the token is missing
     if (!token) {
       throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized!");
@@ -27,15 +26,12 @@ const auth = (...requiredRoles: TUserRole[]) => {
     // checking if the user is exist
     const user = await User.isUserExistsByEmail(userEmail);
     if (!user) {
-      throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
+      throw new AppError(httpStatus.NOT_FOUND, "This user is not found !");
     }
     if (requiredRoles && !requiredRoles.includes(role)) {
-      throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized !");
-    }
-    if (role != requiredRoles[0]) {
       throw new AppError(
         httpStatus.UNAUTHORIZED,
-        "You have no access to this route"
+        "You have no access to this route."
       );
     }
 

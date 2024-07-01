@@ -43,7 +43,9 @@ const getACar: RequestHandler = catchAsync(async (req, res) => {
 const updateACar: RequestHandler =catchAsync( async (req, res) => {
   const carId = req.params.id;
   const updateData = req.body;
+
   const result = await CarServices.updateACar( carId, updateData );
+
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

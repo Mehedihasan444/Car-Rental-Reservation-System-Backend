@@ -40,14 +40,12 @@ const signin = (payload) => __awaiter(void 0, void 0, void 0, function* () {
         email: user.email,
         role: user.role,
     };
-    let accessToken = jsonwebtoken_1.default.sign(jwtPayload, config_1.default.jwt_access_secret, {
+    const accessToken = jsonwebtoken_1.default.sign(jwtPayload, config_1.default.jwt_access_secret, {
         expiresIn: config_1.default.jwt_access_expires_in,
     });
     const refreshToken = jsonwebtoken_1.default.sign(jwtPayload, config_1.default.jwt_refresh_secret, {
         expiresIn: config_1.default.jwt_refresh_expires_in,
     });
-    const newToken = "Bearer " + accessToken;
-    accessToken = newToken;
     return {
         user,
         accessToken,

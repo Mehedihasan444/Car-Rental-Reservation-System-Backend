@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken";
 import config from "../../config";
 import { isPasswordMatched } from "./auth.util";
 
-
 const signup = async (payload: TUser): Promise<any> => {
   //user existence check
   const user = await User.findOne({ email: payload.email });
@@ -13,7 +12,6 @@ const signup = async (payload: TUser): Promise<any> => {
   if (user) {
     throw new Error("User already exists");
   }
-
   //create user
   const newUser = await User.create(payload);
 
@@ -26,8 +24,6 @@ const signin = async (payload: TsigninUser) => {
   if (!user) {
     throw new Error("User not found");
   }
-
-
 
   const passwordMatch = await isPasswordMatched(
     payload.password,
@@ -43,7 +39,7 @@ const signin = async (payload: TsigninUser) => {
     role: user.role,
   };
 
-  let accessToken = jwt.sign(jwtPayload, config.jwt_access_secret as string, {
+  const accessToken = jwt.sign(jwtPayload, config.jwt_access_secret as string, {
     expiresIn: config.jwt_access_expires_in,
   });
 
@@ -54,8 +50,7 @@ const signin = async (payload: TsigninUser) => {
       expiresIn: config.jwt_refresh_expires_in,
     }
   );
-const newToken ="Bearer "+accessToken
-accessToken=newToken
+
   return {
     user,
     accessToken,

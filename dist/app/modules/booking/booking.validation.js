@@ -6,7 +6,7 @@ exports.BookingValidationSchema = zod_1.z.object({
     body: zod_1.z.object({
         date: zod_1.z.string(),
         user: zod_1.z.string().optional(),
-        car: zod_1.z.string(),
+        carId: zod_1.z.string(),
         startTime: zod_1.z.string(),
         endTime: zod_1.z.string().optional(),
         totalCost: zod_1.z.number().optional(),

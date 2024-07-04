@@ -32,7 +32,7 @@ const signin = catchAsync(async (req, res) => {
     data: {
       ...user.toObject(),
     },
-    token: accessToken.split(" ")[1],
+    token: accessToken,
   });
 });
 

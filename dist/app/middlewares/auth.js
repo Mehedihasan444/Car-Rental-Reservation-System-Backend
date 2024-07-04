@@ -26,18 +26,15 @@ const auth = (...requiredRoles) => {
             throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, "You are not authorized!");
         }
         // checking if the given token is valid
-        const decoded = jsonwebtoken_1.default.verify(token, config_1.default.jwt_access_secret);
+        const decoded = jsonwebtoken_1.default.verify(token.split(" ")[1], config_1.default.jwt_access_secret);
         const { role, userEmail } = decoded;
         // checking if the user is exist
         const user = yield user_model_1.User.isUserExistsByEmail(userEmail);
         if (!user) {
-            throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'This user is not found !');
+            throw new AppError_1.default(http_status_1.default.NOT_FOUND, "This user is not found !");
         }
         if (requiredRoles && !requiredRoles.includes(role)) {
-            throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, "You are not authorized !");
-        }
-        if (role != requiredRoles[0]) {
-            throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, "You have no access to this route");
+            throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, "You have no access to this route.");
         }
         req.user = decoded;
         next();

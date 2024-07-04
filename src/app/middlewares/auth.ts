@@ -18,7 +18,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
 
     // checking if the given token is valid
     const decoded = jwt.verify(
-      token,
+      token.split(" ")[1],
       config.jwt_access_secret as string
     ) as JwtPayload;
     const { role, userEmail } = decoded;

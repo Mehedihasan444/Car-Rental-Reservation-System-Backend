@@ -20,9 +20,14 @@ const booking_service_1 = require("./booking.service");
 const user_model_1 = require("../user/user.model");
 //Create Booking
 const createBooking = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const bookingData = req.body;
+    const { carId: car, date, startTime } = req.body;
     const desireUser = yield user_model_1.User.findOne({ email: req.user.email });
-    const newData = Object.assign(Object.assign({}, bookingData), { user: desireUser ? desireUser._id : null });
+    const newData = {
+        car,
+        date,
+        startTime,
+        user: desireUser === null || desireUser === void 0 ? void 0 : desireUser._id
+    };
     const result = yield booking_service_1.BookingServices.createBooking(newData);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
@@ -67,5 +72,5 @@ exports.BookingControllers = {
     createBooking,
     getAllBookings,
     getUsersBooking,
-    returnTheCar
+    returnTheCar,
 };

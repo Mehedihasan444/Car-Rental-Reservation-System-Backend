@@ -1,23 +1,5 @@
 import { z } from "zod";
 
-// export const signUpUserValidationSchema = z.object({
-//   body: z.object({
-//     name: z.string(),
-//     email: z.string(),
-//     role: z.enum(["user", "admin"], {
-//       invalid_type_error: 'Role must be either "user" or "admin"',
-//     }),
-//     password: z.string(),
-//     phone: z.string(),
-//     address: z.string(),
-//   }),
-// });
-// export const signInUserValidationSchema = z.object({
-//   body: z.object({
-//     email: z.string(),
-//     password: z.string(),
-//   }),
-// });
 
 export const signUpUserValidationSchema = z.object({
   body: z.object({
@@ -40,7 +22,19 @@ export const signInUserValidationSchema = z.object({
   }),
 });
 
+export const updateUserValidationSchema = z.object({
+  body: z.object({
+    name: z.string().optional(),
+    email: z.string().email({ message: "Invalid email format" }).optional(),
+    role: z.enum(["user", "admin"]).optional(),
+    password: z.string().optional(),
+    phone: z.string().optional(),
+    address: z.string().optional(),
+  }),
+});
+
 export const UserValidation = {
   signUpUserValidationSchema,
   signInUserValidationSchema,
+  updateUserValidationSchema
 };

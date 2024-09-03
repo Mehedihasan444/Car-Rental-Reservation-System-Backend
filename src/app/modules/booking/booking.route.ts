@@ -10,4 +10,6 @@ const router = express.Router()
 router.post('/',validateRequest(bookingValidations.BookingValidationSchema),auth(USER_ROLE.user),BookingControllers.createBooking)
 router.get('/',auth(USER_ROLE.admin) ,BookingControllers.getAllBookings)
 router.get('/my-bookings',auth(USER_ROLE.user),BookingControllers.getUsersBooking)
+router.put('/:id',validateRequest(bookingValidations.BookingUpdateValidationSchema),auth(USER_ROLE.user),BookingControllers.updateBooking)
+router.delete('/:id',auth(USER_ROLE.user),BookingControllers.deleteBooking)
 export const BookingRoutes = router

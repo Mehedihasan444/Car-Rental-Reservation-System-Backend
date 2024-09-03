@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TBooking, TCarReturn } from "./booking.interface";
 import { Booking } from "./booking.model";
 import { User } from "../user/user.model";
@@ -5,7 +6,9 @@ import { Car } from "../car/car.model";
 import AppError from "../../errors/AppError";
 import httpStatus from "http-status";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getAllBookings = async (queryData: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const data: any = {};
   if (queryData.carId) {
     data.carId = queryData.carId;
@@ -27,7 +30,8 @@ const createBooking = async (payload: TBooking) => {
 };
 
 const getUsersBooking = async (email: string) => {
-  const desireUser: any = await User.findOne({ email });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const desireUser:any = await User.findOne({ email });
 
   const result = await Booking.find({ user: desireUser._id })
     .populate("user")
@@ -64,11 +68,27 @@ const returnTheCar = async (updateData: TCarReturn) => {
 
   const result = await Booking.findByIdAndUpdate(
     updateData?.bookingId,
-    { $set: { endTime, totalCost } },
+    { $set: { endTime, totalCost,payment:"paid" } },
     { new: true }
   )
     .populate("user")
     .populate("car");
+  return result;
+};
+
+
+// update a car with a new value
+const updateBooking = async (id: string, updateData: Record<string, unknown>) => {
+  const result = await Booking.findByIdAndUpdate(
+    id,
+    { $set: updateData },
+    { new: true }
+  );
+  return result;
+};
+// delete a car from the database
+const deleteBooking = async (id: string) => {
+  const result = await Booking.findByIdAndDelete(id);
   return result;
 };
 export const BookingServices = {
@@ -76,4 +96,6 @@ export const BookingServices = {
   createBooking,
   getUsersBooking,
   returnTheCar,
+  updateBooking,
+  deleteBooking,
 };

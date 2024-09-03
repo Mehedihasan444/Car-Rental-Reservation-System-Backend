@@ -9,6 +9,7 @@ export interface TBooking {
     endTime?: string;
     totalCost?: number;
     isBooked?: "unconfirmed" | "confirmed";
+    payment?: string
   }
   
 

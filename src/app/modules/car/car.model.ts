@@ -37,6 +37,35 @@ const carSchema = new Schema<TCar, CarModel>(
       type: Boolean,
       default: false,
     },
+    images: {
+      type: [String],
+      default: [],
+      required: true,
+    },
+    type: {
+      type: String,
+      required: true,
+    },
+    brand: {
+      type: String,
+      required: true,
+    },
+    model: {
+      type: String,
+      required: true,
+    },
+    fuelType: {
+      type: String,
+      required: true,
+    },
+    transmission: {
+      type: String,
+      required: true,
+    },
+    seatingCapacity: {
+      type: Number,
+      required: true,
+    },
   },
   {
     timestamps: true,
@@ -44,9 +73,9 @@ const carSchema = new Schema<TCar, CarModel>(
 );
 carSchema.pre("save", async function (next) {
   const isCarExists = await Car.findOne({ name: this.name });
-  
+
   if (isCarExists) {
-    throw new Error('Car is already exists !');
+    throw new Error("Car is already exists !");
   }
   next();
 });
@@ -65,8 +94,4 @@ carSchema.pre("aggregate", function (next) {
   next();
 });
 
-
-
-
 export const Car = model<TCar, CarModel>("Car", carSchema);
-

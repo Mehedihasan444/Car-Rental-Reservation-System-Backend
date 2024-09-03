@@ -67,9 +67,40 @@ const returnTheCar: RequestHandler = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
+//update a Car
+const updateBooking: RequestHandler =catchAsync( async (req, res) => {
+  const bookingId = req.params.id;
+  const updateData = req.body;
+
+  const result = await BookingServices.updateBooking( bookingId, updateData );
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Booking is updated successfully",
+    data: result,
+  });
+});
+// delete a Booking
+const deleteBooking: RequestHandler =catchAsync(async (req, res) => {
+  const BookingId = req.params.id;
+  const result = await BookingServices.deleteBooking(BookingId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Booking is deleted successfully",
+    data: result,
+  });
+}) ;
+
+
 export const BookingControllers = {
   createBooking,
   getAllBookings,
   getUsersBooking,
   returnTheCar,
+  updateBooking,
+  deleteBooking,
 };

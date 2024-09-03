@@ -9,6 +9,7 @@ export const BookingValidationSchema = z.object({
   }),
 });
 
+
 export const BookingUpdateValidationSchema = z.object({
   body: z.object({
     date: z.string().optional(),

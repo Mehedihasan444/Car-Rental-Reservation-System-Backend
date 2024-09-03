@@ -35,10 +35,14 @@ const bookingSchema = new Schema<TBooking>({
     enum: ["unconfirmed", "confirmed","canceled","returned"],
     default: "unconfirmed",
   },
-  payment: {
+ payment : {
     type: String,
     enum: ["paid", "due"],
     default: "due",
+  },
+ transactionId : {
+    type: String,
+    default: null,
   },
 },{
   timestamps: true,

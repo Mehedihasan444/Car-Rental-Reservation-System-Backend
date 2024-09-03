@@ -10,6 +10,7 @@ export interface TBooking {
     totalCost?: number;
     isBooked?: "unconfirmed" | "confirmed";
     payment?: string
+    transactionId?: string
   }
   
 

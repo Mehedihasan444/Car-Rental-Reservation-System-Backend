@@ -19,7 +19,9 @@ const updateAUser = async (id: string, updateData: Record<string, unknown>) => {
 };
 // delete a User from the database
 const deleteAUser = async (id: string) => {
-  const result = await User.findByIdAndDelete(id);
+  const result = await User.findByIdAndUpdate(id,{
+    $set: { isDeleted: true }
+  });
   return result;
 };
 // get all User from the database

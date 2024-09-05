@@ -1,44 +1,4 @@
-// import { z } from "zod";
 
-// const carValidationSchema = z.object({
-//   body: z.object({
-//     name: z.string().min(1, { message: "Name is required" }),
-//     description: z.string().min(1, { message: "Description is required" }),
-//     color: z.string().min(1, { message: "Color is required" }),
-//     isElectric: z.boolean({ required_error: "Electric status is required" }),
-//     features: z.array(
-//       z.string().min(1, { message: "Feature must be a non-empty string" }),
-//       { required_error: "Features are required" }
-//     ),
-//     pricePerHour: z
-//       .number({ required_error: "Price per hour is required" })
-//       .refine((val) => val >= 0, {
-//         message: "Price per hour must be a non-negative number",
-//       }),
-//   }),
-// });
-
-// const updateCarValidationSchema = z.object({
-//   body: z.object({
-//     name: z.string().optional(),
-//     description: z.string().optional(),
-//     color: z.string().optional(),
-//     isElectric: z.boolean().optional(),
-//     status: z.enum(["available", "unavailable"]).optional(),
-//     features: z
-//       .array(
-//         z.string().min(1, { message: "Feature must be a non-empty string" })
-//       )
-//       .optional(),
-//     pricePerHour: z.number().optional(),
-//     isDeleted: z.boolean().optional(),
-//   }),
-// });
-
-// export const CarValidation = {
-//   carValidationSchema,
-//   updateCarValidationSchema,
-// };
 import { z } from "zod";
 
 
@@ -48,8 +8,8 @@ const carValidationSchema = z.object({
     name: z.string().min(1, { message: "Name is required" }),
     description: z.string().min(1, { message: "Description is required" }),
     color: z.string().min(1, { message: "Color is required" }),
-    isElectric: z.boolean({ required_error: "Electric status is required" }),
-    status: z.enum(["available", "unavailable"]).optional(),
+    engineType: z.string({ required_error: "Engine Type is required" }),
+    status: z.enum(["available", "booked", "maintenance"]).optional(),
     features: z.array(
       z.string().min(1, { message: "Feature must be a non-empty string" }),
       { required_error: "Features are required" }
@@ -73,6 +33,12 @@ const carValidationSchema = z.object({
       .refine((val) => val > 0, {
         message: "Seating capacity must be a positive number",
       }),
+    noOfDoors: z
+      .number({ required_error: "Number of doors is required" })
+      .int({ message: "Number of doors must be an integer" })
+      .refine((val) => val > 0, {
+        message: "Number of doors must be a positive number",
+      }),
   }),
 });
 
@@ -82,8 +48,8 @@ const updateCarValidationSchema = z.object({
     name: z.string().optional(),
     description: z.string().optional(),
     color: z.string().optional(),
-    isElectric: z.boolean().optional(),
-    status: z.enum(["available", "unavailable"]).optional(),
+    engineType: z.string().optional(),
+    status: z.enum(["available", "booked", "maintenance"]).optional(),
     features: z
       .array(
         z.string().min(1, { message: "Feature must be a non-empty string" })
@@ -112,8 +78,17 @@ const updateCarValidationSchema = z.object({
         message: "Seating capacity must be a positive number",
       })
       .optional(),
+    noOfDoors: z
+      .number()
+      .int()
+      .refine((val) => val > 0, {
+        message: "Number of doors must be a positive number",
+      })
+      .optional(),
   }),
 });
+
+
 
 export const CarValidation = {
   carValidationSchema,

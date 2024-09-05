@@ -1,14 +1,16 @@
 /* eslint-disable no-unused-vars */
-import { Model } from 'mongoose';
-import { USER_ROLE } from './user.constant';
+import { Model } from "mongoose";
+import { USER_ROLE } from "./user.constant";
 
 export interface TUser {
   name: string;
   password: string;
   email: string;
   phone: string;
-  role: 'admin' | 'user';
+  role: "admin" | "user";
   address: string;
+  status: "active" | "blocked";
+  isDeleted: boolean;
 }
 
 export interface UserModel extends Model<TUser> {
@@ -17,11 +19,11 @@ export interface UserModel extends Model<TUser> {
   //instance methods for checking if passwords are matched
   isPasswordMatched(
     plainTextPassword: string,
-    hashedPassword: string,
+    hashedPassword: string
   ): Promise<boolean>;
   isJWTIssuedBeforePasswordChanged(
     passwordChangedTimestamp: Date,
-    jwtIssuedTimestamp: number,
+    jwtIssuedTimestamp: number
   ): boolean;
 }
 

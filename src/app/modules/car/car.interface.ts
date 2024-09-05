@@ -1,12 +1,11 @@
 import { Model } from "mongoose";
 
-
 export interface TCar {
   name: string;
   description: string;
   color: string;
-  isElectric: boolean;
-  status?: "available" | "unavailable";
+  engineType: string;
+  status?: "available" | "booked" | "maintenance";
   features: Array<string>;
   pricePerHour: number;
   isDeleted?: boolean;
@@ -17,5 +16,7 @@ export interface TCar {
   transmission: string;
   seatingCapacity: number;
   images: string[];
+  year: number;
+  noOfDoors: number;
 }
 export interface CarModel extends Model<TCar> {}

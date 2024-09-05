@@ -16,7 +16,7 @@ export type TPayment = {
     name: string;
     description: string;
     color: string;
-    isElectric: boolean;
+    engineType: string;
     status: "available" | "unavailable";
     features: string[];
     pricePerHour: number;

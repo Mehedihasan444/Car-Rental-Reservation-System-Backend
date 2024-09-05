@@ -13,7 +13,7 @@ router.get("/:id", auth(USER_ROLE.user), UserControllers.getAUser);
 router.put(
   "/:id",
   validateRequest(UserValidation.updateUserValidationSchema),
-  auth(USER_ROLE.user),
+  auth(USER_ROLE.user, USER_ROLE.admin),
   UserControllers.updateAUser
 );
 router.delete("/:id", auth(USER_ROLE.admin), UserControllers.deleteAUser);

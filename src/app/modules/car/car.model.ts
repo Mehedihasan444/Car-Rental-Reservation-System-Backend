@@ -16,13 +16,13 @@ const carSchema = new Schema<TCar, CarModel>(
       type: String,
       required: true,
     },
-    isElectric: {
-      type: Boolean,
+    engineType: {
+      type: String,
       required: true,
     },
     status: {
       type: String,
-      enum: ["available", "unavailable"],
+      enum: ["available","booked","maintenance"],
       default: "available",
     },
     features: {
@@ -54,6 +54,10 @@ const carSchema = new Schema<TCar, CarModel>(
       type: String,
       required: true,
     },
+    year: {
+      type: Number,
+      required: true,
+    },
     fuelType: {
       type: String,
       required: true,
@@ -63,6 +67,10 @@ const carSchema = new Schema<TCar, CarModel>(
       required: true,
     },
     seatingCapacity: {
+      type: Number,
+      required: true,
+    },
+    noOfDoors: {
       type: Number,
       required: true,
     },

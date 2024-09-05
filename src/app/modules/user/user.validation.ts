@@ -30,6 +30,8 @@ export const updateUserValidationSchema = z.object({
     password: z.string().optional(),
     phone: z.string().optional(),
     address: z.string().optional(),
+    status: z.enum(["active", "blocked"]).optional(),
+    isDeleted: z.boolean().optional(),
   }),
 });
 

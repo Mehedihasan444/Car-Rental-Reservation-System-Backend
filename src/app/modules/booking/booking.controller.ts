@@ -9,19 +9,13 @@ import { Types } from "mongoose";
 
 //Create Booking
 const createBooking: RequestHandler = async (req, res) => {
-  const { carId: car, date, startTime } = req.body;
+  const { carId, ...data} = req.body;
   const desireUser = await User.findOne({ email: req.user.email });
 
-  const newData: {
-    car: Types.ObjectId;
-    date: string;
-    startTime: string;
-    user: Types.ObjectId ;
-  } = {
-    car,
-    date,
-    startTime,
-    user: desireUser?._id as Types.ObjectId 
+  const newData = {
+    car :carId as Types.ObjectId,
+    user: desireUser?._id as Types.ObjectId, 
+  ...data,
   };
   const result = await BookingServices.createBooking(newData);
 

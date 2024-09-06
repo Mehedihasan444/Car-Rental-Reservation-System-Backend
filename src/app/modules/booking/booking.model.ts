@@ -44,6 +44,54 @@ const bookingSchema = new Schema<TBooking>({
     type: String,
     default: null,
   },
+  returnDate: {
+    type: String,
+    default: null,
+  },
+  pickupLocation:{
+    type: String,
+    required: [true, "Pickup location is required"],
+  },
+  destination:{
+    type: String,
+    required: [true, "Destination is required"],
+  },
+  bookedUserInfo:{
+    userName:{
+      type: String,
+      required: [true, "User name is required"],
+    },
+    email:{
+      type: String,
+      required: [true, "Email is required"],
+    },
+    phone:{
+      type: String,
+      required: [true, "Phone number is required"],
+    },
+    nid:{
+      type: String,
+      required: [true, "National ID is required"],
+    },
+    drivingLicense:{
+      type: String,
+      required: [true, "Driving license is required"],
+    }
+  },
+  additionalFeatures:{
+    childSeat: {
+      type: Boolean,
+      default: false,
+    },
+    gps: {
+      type: Boolean,
+      default: false,
+    },
+    insurance: {
+      type: Boolean,
+      default: false,
+    },
+  }
 },{
   timestamps: true,
 });

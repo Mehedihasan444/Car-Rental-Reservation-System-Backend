@@ -18,7 +18,8 @@ const createCar: RequestHandler = async (req, res) => {
 };
 //get all cars
 const getAllCars: RequestHandler = catchAsync(async (req, res) => {
-  const result = await CarServices.getAllCars();
+  const queries = req.query
+  const result = await CarServices.getAllCars(queries);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

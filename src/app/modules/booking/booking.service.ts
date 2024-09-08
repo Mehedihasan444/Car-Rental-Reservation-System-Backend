@@ -31,7 +31,7 @@ const createBooking = async (payload: TBooking) => {
 
 const getUsersBooking = async (email: string) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const desireUser:any = await User.findOne({ email });
+  const desireUser: any = await User.findOne({ email });
 
   const result = await Booking.find({ user: desireUser._id })
     .populate("user")
@@ -68,7 +68,7 @@ const returnTheCar = async (updateData: TCarReturn) => {
 
   const result = await Booking.findByIdAndUpdate(
     updateData?.bookingId,
-    { $set: { endTime, totalCost,payment:"paid" } },
+    { $set: { endTime, totalCost, payment: "paid" } },
     { new: true }
   )
     .populate("user")
@@ -76,14 +76,25 @@ const returnTheCar = async (updateData: TCarReturn) => {
   return result;
 };
 
-
 // update a car with a new value
-const updateBooking = async (id: string, updateData: Record<string, unknown>) => {
+const updateBooking = async (
+  id: string,
+  updateData: Record<string, unknown>
+) => {
   const result = await Booking.findByIdAndUpdate(
     id,
     { $set: updateData },
     { new: true }
   );
+  if (updateData.isBooked) {
+    await Car.findByIdAndUpdate(
+      result?.car,
+      { $set: {
+        status:"booked"
+      } },
+      { new: true }
+    );
+  }
   return result;
 };
 // delete a car from the database

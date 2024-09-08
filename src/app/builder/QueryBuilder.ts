@@ -1,4 +1,4 @@
-import { FilterQuery, Query } from 'mongoose';
+import { FilterQuery, Query } from "mongoose";
 
 class QueryBuilder<T> {
   public modelQuery: Query<T[], T>;
@@ -8,7 +8,6 @@ class QueryBuilder<T> {
     this.modelQuery = modelQuery;
     this.query = query;
   }
-
 
   search(searchableFields: string[]) {
     const searchTerm = this?.query?.searchTerm;
@@ -29,18 +28,13 @@ class QueryBuilder<T> {
   filter() {
     const queryObj = { ...this.query };
     // Filtering
-    const excludeFields = [
-      "searchTerm",
-      "sort",
-      "limit",
-      "page",
-    ];
+    const excludeFields = ["searchTerm", "sort", "limit", "page"];
 
     excludeFields.forEach((el) => delete queryObj[el]);
     if (queryObj.minPrice && queryObj.maxPrice) {
       this.modelQuery = this.modelQuery.find({
-        price: { $gte: queryObj.minPrice, $lte: queryObj.maxPrice },
-      } );
+        pricePerHour: { $gte: queryObj.minPrice, $lte: queryObj.maxPrice },
+      });
     } else {
       this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>);
     }
@@ -52,7 +46,9 @@ class QueryBuilder<T> {
     const sortDirection = (this?.query?.sort as "asc" | "desc") || "asc";
 
     if (sort) {
-      this.modelQuery = this.modelQuery.sort({ price: sortDirection });
+      this.modelQuery = this.modelQuery.sort({
+        pricePerHour: sortDirection,
+      });
     }
 
     return this;
@@ -68,6 +64,5 @@ class QueryBuilder<T> {
     return this;
   }
 }
-
 
 export default QueryBuilder;

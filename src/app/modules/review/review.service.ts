@@ -4,8 +4,7 @@ import { Review } from "./review.model";
 
 // create a new Review in the database
 const createReview = async (payload: TReview) => {
-  const result = (await Review.create(payload))
-  .populate("car");
+  const result = (await Review.create(payload)).populate("car");
   return result;
 };
 // get a single Review from the database
@@ -30,8 +29,8 @@ const deleteAReview = async (id: string) => {
   return result;
 };
 // get all Review from the database
-const getAllReviews = async (carId:string) => {
-  const result = await Review.findById(carId);
+const getAllReviews = async () => {
+  const result = await Review.find().populate("car");;
   return result;
 };
 

@@ -33,7 +33,7 @@ const getAllCars = async (payload: Record<string, unknown>) => {
   // return result;
   // Create a new QueryBuilder instance for the car query
   const carQuery = new QueryBuilder(Car.find({}), payload)
-    .search(["name", "description"])
+    .search(["features",])
     .filter()
     .sort()
     .paginate();

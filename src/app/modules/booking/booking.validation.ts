@@ -17,9 +17,9 @@ export const BookingValidationSchema = z.object({
       drivingLicense: z.string().optional(),
     }),
     additionalFeatures: z.object({
-      childSeat: z.boolean({ message: "Child seat is required" }),
-      gps: z.boolean({ message: "GPS is required" }),
-      insurance: z.boolean({ message: "Insurance is required" }),
+      childSeat: z.boolean({ message: "Child seat is required" }).optional(),
+      gps: z.boolean({ message: "GPS is required" }).optional(),
+      insurance: z.boolean({ message: "Insurance is required" }).optional(),
     }),
   }),
 });

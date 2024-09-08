@@ -8,7 +8,7 @@ import { ReviewServices } from "./review.service";
 //Create Review
 const createReview: RequestHandler = async (req, res) => {
   const reviewData = req.body;
-  const result = await ReviewServices.createReview(reviewData);
+  const result = (await ReviewServices.createReview(reviewData))
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -19,8 +19,8 @@ const createReview: RequestHandler = async (req, res) => {
 };
 //get all Reviews
 const getAllReviews: RequestHandler = catchAsync(async (req, res) => {
-  const carId = req.body;
-  const result = await ReviewServices.getAllReviews(carId);
+ 
+  const result = await ReviewServices.getAllReviews();
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

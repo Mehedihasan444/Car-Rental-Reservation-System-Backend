@@ -13,7 +13,7 @@ router.post(
   validateRequest(ReviewValidation.reviewValidationSchema),
   ReviewControllers.createReview
 );
-router.get("/", auth(USER_ROLE.admin), ReviewControllers.getAllReviews);
+router.get("/", auth(USER_ROLE.admin,USER_ROLE.user), ReviewControllers.getAllReviews);
 router.get("/:id", auth(USER_ROLE.user,USER_ROLE.admin), ReviewControllers.getAReview);
 router.put(
   "/:id",

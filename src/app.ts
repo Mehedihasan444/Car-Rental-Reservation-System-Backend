@@ -10,7 +10,16 @@ const app: Application = express();
 //parsers
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: ["http://localhost:5173","https://car-rental-reservation-system-frontend-mbc2bxvua.vercel.app"], credentials: true }));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://car-rental-reservation-system-frontend-tau.vercel.app",
+      "https://car-rental-reservation-system-frontend-mbc2bxvua.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 
 // application routes
 app.use("/api", router);

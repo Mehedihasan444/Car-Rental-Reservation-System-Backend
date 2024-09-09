@@ -22,7 +22,7 @@ const createBooking: RequestHandler = async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Car booked successfully",
+    message:"Car booked successfully",
     data: result,
   });
 };

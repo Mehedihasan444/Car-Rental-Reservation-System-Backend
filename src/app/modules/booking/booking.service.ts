@@ -21,11 +21,13 @@ const getAllBookings = async (queryData: any) => {
 };
 
 const createBooking = async (payload: TBooking) => {
+
   const result = await Booking.create(payload);
 
   const result1 = await Booking.findById(result._id)
     .populate("user")
     .populate("car");
+ 
   return result1;
 };
 
@@ -68,18 +70,20 @@ const returnTheCar = async (updateData: TCarReturn) => {
 
   const result = await Booking.findByIdAndUpdate(
     updateData?.bookingId,
-    { $set: { endTime, totalCost, isBooked: "returned", } },
+    { $set: { endTime, totalCost, isBooked: "returned" } },
     { new: true }
   )
     .populate("user")
     .populate("car");
-    await Car.findByIdAndUpdate(
-      booking?.car,
-      { $set: {
-        status:"available"
-      } },
-      { new: true }
-    );
+  await Car.findByIdAndUpdate(
+    booking?.car,
+    {
+      $set: {
+        status: "available",
+      },
+    },
+    { new: true }
+  );
   return result;
 };
 
@@ -93,12 +97,14 @@ const updateBooking = async (
     { $set: updateData },
     { new: true }
   );
-  if (updateData.isBooked=="booked") {
+  if (updateData.isBooked == "confirmed") {
     await Car.findByIdAndUpdate(
       result?.car,
-      { $set: {
-        status:"booked"
-      } },
+      {
+        $set: {
+          status: "booked",
+        },
+      },
       { new: true }
     );
   }

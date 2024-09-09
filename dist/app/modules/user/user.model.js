@@ -41,13 +41,22 @@ const userSchema = new mongoose_1.Schema({
     },
     role: {
         type: String,
-        enum: ['user', 'admin'],
+        enum: ["user", "admin"],
+    },
+    status: {
+        type: String,
+        enum: ["blocked", "active"],
+        default: "active",
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false,
     },
 }, {
     timestamps: true,
-    versionKey: false
+    versionKey: false,
 });
-userSchema.pre('save', function (next) {
+userSchema.pre("save", function (next) {
     return __awaiter(this, void 0, void 0, function* () {
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const user = this; // doc
@@ -57,13 +66,13 @@ userSchema.pre('save', function (next) {
     });
 });
 // set '' after saving password
-userSchema.post('save', function (doc, next) {
-    doc.password = '';
+userSchema.post("save", function (doc, next) {
+    doc.password = "";
     next();
 });
 userSchema.statics.isUserExistsByEmail = function (id) {
     return __awaiter(this, void 0, void 0, function* () {
-        return yield exports.User.findOne({ id }).select('+password');
+        return yield exports.User.findOne({ id }).select("+password");
     });
 };
 userSchema.statics.isPasswordMatched = function (plainTextPassword, hashedPassword) {
@@ -75,4 +84,4 @@ userSchema.statics.isJWTIssuedBeforePasswordChanged = function (passwordChangedT
     const passwordChangedTime = new Date(passwordChangedTimestamp).getTime() / 1000;
     return passwordChangedTime > jwtIssuedTimestamp;
 };
-exports.User = (0, mongoose_1.model)('User', userSchema);
+exports.User = (0, mongoose_1.model)("User", userSchema);

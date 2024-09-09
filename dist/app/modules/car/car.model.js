@@ -25,13 +25,13 @@ const carSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
-    isElectric: {
-        type: Boolean,
+    engineType: {
+        type: String,
         required: true,
     },
     status: {
         type: String,
-        enum: ["available", "unavailable"],
+        enum: ["available", "booked", "maintenance"],
         default: "available",
     },
     features: {
@@ -46,6 +46,43 @@ const carSchema = new mongoose_1.Schema({
         type: Boolean,
         default: false,
     },
+    images: {
+        type: [String],
+        default: [],
+        required: true,
+    },
+    type: {
+        type: String,
+        required: true,
+    },
+    brand: {
+        type: String,
+        required: true,
+    },
+    model: {
+        type: String,
+        required: true,
+    },
+    year: {
+        type: Number,
+        required: true,
+    },
+    fuelType: {
+        type: String,
+        required: true,
+    },
+    transmission: {
+        type: String,
+        required: true,
+    },
+    seatingCapacity: {
+        type: Number,
+        required: true,
+    },
+    noOfDoors: {
+        type: Number,
+        required: true,
+    },
 }, {
     timestamps: true,
 });
@@ -53,7 +90,7 @@ carSchema.pre("save", function (next) {
     return __awaiter(this, void 0, void 0, function* () {
         const isCarExists = yield exports.Car.findOne({ name: this.name });
         if (isCarExists) {
-            throw new Error('Car is already exists !');
+            throw new Error("Car is already exists !");
         }
         next();
     });

@@ -12,71 +12,70 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CarControllers = void 0;
+exports.ReviewControllers = void 0;
 const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
-const car_service_1 = require("./car.service");
 const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
 const http_status_1 = __importDefault(require("http-status"));
-//Create Car
-const createCar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const carData = req.body;
-    const result = yield car_service_1.CarServices.createCar(carData);
+const review_service_1 = require("./review.service");
+//Create Review
+const createReview = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const reviewData = req.body;
+    const result = yield (yield review_service_1.ReviewServices.createReview(reviewData)).populate("car");
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: "Car is created successfully",
+        message: "Review is created successfully",
         data: result,
     });
 });
-//get all cars
-const getAllCars = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const queries = req.query;
-    const result = yield car_service_1.CarServices.getAllCars(queries);
+//get all Reviews
+const getAllReviews = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield review_service_1.ReviewServices.getAllReviews();
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: "Cars are retrieved successfully",
+        message: "Reviews are retrieved successfully",
         data: result,
     });
 }));
-//get a single car
-const getACar = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield car_service_1.CarServices.getACar(req.params.id);
+//get a single Review
+const getAReview = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield review_service_1.ReviewServices.getAReview(req.params.id);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: "Car is retrieved successfully",
+        message: "Review is retrieved successfully",
         data: result,
     });
 }));
-//update a Car
-const updateACar = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const carId = req.params.id;
+//update a Review
+const updateAReview = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const ReviewId = req.params.id;
     const updateData = req.body;
-    const result = yield car_service_1.CarServices.updateACar(carId, updateData);
+    const result = yield review_service_1.ReviewServices.updateAReview(ReviewId, updateData);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: "Car is updated successfully",
+        message: "Review is updated successfully",
         data: result,
     });
 }));
-// delete a Car
-const deleteACar = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const CarId = req.params.id;
-    const result = yield car_service_1.CarServices.deleteACar(CarId);
+// delete a Review
+const deleteAReview = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const ReviewId = req.params.id;
+    const result = yield review_service_1.ReviewServices.deleteAReview(ReviewId);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: "Car is deleted successfully",
+        message: "Review is deleted successfully",
         data: result,
     });
 }));
 // ------------------------========================-----------------------------
-exports.CarControllers = {
-    createCar,
-    getACar,
-    updateACar,
-    deleteACar,
-    getAllCars,
+exports.ReviewControllers = {
+    createReview,
+    getAReview,
+    updateAReview,
+    deleteAReview,
+    getAllReviews,
 };

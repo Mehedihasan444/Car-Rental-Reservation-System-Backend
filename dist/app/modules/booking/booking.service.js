@@ -18,7 +18,9 @@ const user_model_1 = require("../user/user.model");
 const car_model_1 = require("../car/car.model");
 const AppError_1 = __importDefault(require("../../errors/AppError"));
 const http_status_1 = __importDefault(require("http-status"));
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getAllBookings = (queryData) => __awaiter(void 0, void 0, void 0, function* () {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const data = {};
     if (queryData.carId) {
         data.carId = queryData.carId;
@@ -37,6 +39,7 @@ const createBooking = (payload) => __awaiter(void 0, void 0, void 0, function* (
     return result1;
 });
 const getUsersBooking = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const desireUser = yield user_model_1.User.findOne({ email });
     const result = yield booking_model_1.Booking.find({ user: desireUser._id })
         .populate("user")
@@ -65,9 +68,31 @@ const returnTheCar = (updateData) => __awaiter(void 0, void 0, void 0, function*
     const hours = Math.abs(end.getTime() - start.getTime()) / 36e5;
     // Calculate the total cost
     const totalCost = hours * car.pricePerHour;
-    const result = yield booking_model_1.Booking.findByIdAndUpdate(updateData === null || updateData === void 0 ? void 0 : updateData.bookingId, { $set: { endTime, totalCost } }, { new: true })
+    const result = yield booking_model_1.Booking.findByIdAndUpdate(updateData === null || updateData === void 0 ? void 0 : updateData.bookingId, { $set: { endTime, totalCost, isBooked: "returned" } }, { new: true })
         .populate("user")
         .populate("car");
+    yield car_model_1.Car.findByIdAndUpdate(booking === null || booking === void 0 ? void 0 : booking.car, {
+        $set: {
+            status: "available",
+        },
+    }, { new: true });
+    return result;
+});
+// update a car with a new value
+const updateBooking = (id, updateData) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield booking_model_1.Booking.findByIdAndUpdate(id, { $set: updateData }, { new: true });
+    if (updateData.isBooked == "confirmed") {
+        yield car_model_1.Car.findByIdAndUpdate(result === null || result === void 0 ? void 0 : result.car, {
+            $set: {
+                status: "booked",
+            },
+        }, { new: true });
+    }
+    return result;
+});
+// delete a car from the database
+const deleteBooking = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield booking_model_1.Booking.findByIdAndDelete(id);
     return result;
 });
 exports.BookingServices = {
@@ -75,4 +100,6 @@ exports.BookingServices = {
     createBooking,
     getUsersBooking,
     returnTheCar,
+    updateBooking,
+    deleteBooking,
 };

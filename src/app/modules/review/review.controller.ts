@@ -8,7 +8,7 @@ import { ReviewServices } from "./review.service";
 //Create Review
 const createReview: RequestHandler = async (req, res) => {
   const reviewData = req.body;
-  const result = (await ReviewServices.createReview(reviewData))
+  const result = await (await ReviewServices.createReview(reviewData)).populate("car")
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

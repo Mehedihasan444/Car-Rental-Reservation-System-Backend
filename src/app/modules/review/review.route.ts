@@ -9,12 +9,11 @@ const router = express.Router();
 
 router.post(
   "/",
-  auth(USER_ROLE.user),
   validateRequest(ReviewValidation.reviewValidationSchema),
   ReviewControllers.createReview
 );
-router.get("/", auth(USER_ROLE.admin,USER_ROLE.user), ReviewControllers.getAllReviews);
-router.get("/:id", auth(USER_ROLE.user,USER_ROLE.admin), ReviewControllers.getAReview);
+router.get("/", ReviewControllers.getAllReviews);
+router.get("/:id", ReviewControllers.getAReview);
 router.put(
   "/:id",
   validateRequest(ReviewValidation.updateReviewValidationSchema),

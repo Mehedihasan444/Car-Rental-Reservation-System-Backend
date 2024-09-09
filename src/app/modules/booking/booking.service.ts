@@ -68,11 +68,18 @@ const returnTheCar = async (updateData: TCarReturn) => {
 
   const result = await Booking.findByIdAndUpdate(
     updateData?.bookingId,
-    { $set: { endTime, totalCost, payment: "paid" } },
+    { $set: { endTime, totalCost, isBooked: "returned", } },
     { new: true }
   )
     .populate("user")
     .populate("car");
+    await Car.findByIdAndUpdate(
+      booking?.car,
+      { $set: {
+        status:"available"
+      } },
+      { new: true }
+    );
   return result;
 };
 
@@ -86,7 +93,7 @@ const updateBooking = async (
     { $set: updateData },
     { new: true }
   );
-  if (updateData.isBooked) {
+  if (updateData.isBooked=="booked") {
     await Car.findByIdAndUpdate(
       result?.car,
       { $set: {

@@ -9,7 +9,7 @@ const createReview = async (payload: TReview) => {
 };
 // get a single Review from the database
 const getAReview = async (id: string) => {
-  const result = await Review.find({car:id});
+  const result = await Review.find({car:id}).populate("car");
 
   return result;
 };

@@ -81,7 +81,7 @@ const paymentConfirmation = (req, res) => __awaiter(void 0, void 0, void 0, func
         <div class="container">
           <h1>Payment Success</h1>
           <p>Thank you for your payment! Your transaction has been successfully completed.</p>
-          <a href="http://localhost:5173/" class="button">Go to Home</a>
+          <a href="https://car-rental-reservation-system-frontend-tau.vercel.app/" class="button">Go to Home</a>
         </div>
       </body>
     </html>
@@ -136,7 +136,7 @@ const paymentFailed = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         <div class="container">
           <h1>Payment Failed</h1>
           <p>We're sorry, but your payment could not be processed. Please try again.</p>
-          <a href="http://localhost:5173/dashboard/user/payment-management" class="button">Retry Payment</a>
+          <a href="https://car-rental-reservation-system-frontend-tau.vercel.app/dashboard/user/payment-management" class="button">Retry Payment</a>
         </div>
       </body>
     </html>

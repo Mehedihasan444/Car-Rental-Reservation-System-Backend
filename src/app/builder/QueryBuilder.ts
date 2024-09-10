@@ -9,9 +9,29 @@ class QueryBuilder<T> {
     this.query = query;
   }
 
+  // search(searchableFields: string[]) {
+  //   const searchTerm = [this?.query?.searchTerm];
+  //   console.log(searchTerm)
+  //   if (searchTerm) {
+  //     this.modelQuery = this.modelQuery.find({
+  //       $or: searchableFields.map(
+  //         (field) =>
+  //           ({
+  //             [field]: { $regex: searchTerm, $options: "i" },
+  //           } as FilterQuery<T>)
+  //       ),
+  //     });
+  //   }
+
+  //   return this;
+  // }
   search(searchableFields: string[]) {
     const searchTerm = this?.query?.searchTerm;
+
+    
     if (searchTerm) {
+      // Split the comma-separated string into an array of features
+      const featureArray = typeof searchTerm === 'string' ? searchTerm.split(',').map(f => f.trim()) : [];
       this.modelQuery = this.modelQuery.find({
         $or: searchableFields.map(
           (field) =>
@@ -20,10 +40,18 @@ class QueryBuilder<T> {
             } as FilterQuery<T>)
         ),
       });
+      if (featureArray && featureArray.length > 0) {
+        this.modelQuery = this.modelQuery.find({
+          features: { $in: featureArray }, // Matches cars with any of the selected features
+        });
+      }
     }
-
+  
+  
     return this;
   }
+  
+  
 
   filter() {
     const queryObj = { ...this.query };

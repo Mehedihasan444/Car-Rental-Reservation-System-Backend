@@ -85,6 +85,8 @@ const updateCarValidationSchema = z.object({
         message: "Number of doors must be a positive number",
       })
       .optional(),
+      currentLocation: z.string().optional(),
+ 
   }),
 });
 

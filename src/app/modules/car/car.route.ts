@@ -16,13 +16,14 @@ router.post(
   CarControllers.createCar
 );
 router.get("/", CarControllers.getAllCars);
-router.get("/:id", CarControllers.getACar);
+router.get("/check-availability",CarControllers.checkCarAvailability)
 router.put(
   "/return",
   validateRequest(bookingValidations.carReturnValidationSchema),
   auth(USER_ROLE.admin),
   BookingControllers.returnTheCar
 );
+router.get("/:id", CarControllers.getACar);
 router.put(
   "/:id",
   validateRequest(CarValidation.updateCarValidationSchema),

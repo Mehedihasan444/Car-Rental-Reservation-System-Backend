@@ -32,6 +32,9 @@ const signin = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     if (!user) {
         throw new Error("User not found");
     }
+    if ((user === null || user === void 0 ? void 0 : user.status) === "blocked") {
+        throw new Error("Your account has been blocked. Please contact support for assistance.");
+    }
     const passwordMatch = yield (0, auth_util_1.isPasswordMatched)(payload.password, user.password);
     if (!passwordMatch) {
         throw new Error("Password not matched");

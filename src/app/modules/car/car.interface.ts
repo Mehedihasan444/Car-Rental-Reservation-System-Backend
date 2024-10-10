@@ -18,5 +18,6 @@ export interface TCar {
   images: string[];
   year: number;
   noOfDoors: number;
+  currentLocation?: string;
 }
 export interface CarModel extends Model<TCar> {}

@@ -79,6 +79,7 @@ const updateCarValidationSchema = zod_1.z.object({
             message: "Number of doors must be a positive number",
         })
             .optional(),
+        currentLocation: zod_1.z.string().optional(),
     }),
 });
 exports.CarValidation = {

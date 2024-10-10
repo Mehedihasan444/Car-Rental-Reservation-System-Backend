@@ -22,7 +22,7 @@ const carSchema = new Schema<TCar, CarModel>(
     },
     status: {
       type: String,
-      enum: ["available","booked","maintenance"],
+      enum: ["available", "booked", "maintenance"],
       default: "available",
     },
     features: {
@@ -73,6 +73,11 @@ const carSchema = new Schema<TCar, CarModel>(
     noOfDoors: {
       type: Number,
       required: true,
+    },
+    currentLocation: {
+      type: String,
+      required: true,
+      default: "Chapainawabganj",
     },
   },
   {

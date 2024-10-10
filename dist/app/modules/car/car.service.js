@@ -37,11 +37,9 @@ const deleteACar = (id) => __awaiter(void 0, void 0, void 0, function* () {
 });
 // get all car from the database
 const getAllCars = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    // const result = await Car.find();
-    // return result;
     // Create a new QueryBuilder instance for the car query
     const carQuery = new QueryBuilder_1.default(car_model_1.Car.find({}), payload)
-        .search(["features",])
+        .search(["features"])
         .filter()
         .sort()
         .paginate();
@@ -59,10 +57,19 @@ const getAllCars = (payload) => __awaiter(void 0, void 0, void 0, function* () {
         cars: result,
     };
 });
+// search available cars a car with a new value
+const checkCarAvailability = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield car_model_1.Car.find({
+        status: "available",
+        currentLocation: { $regex: payload.searchTerm, $options: "i" },
+    });
+    return result;
+});
 exports.CarServices = {
     createCar,
     getACar,
     updateACar,
     deleteACar,
     getAllCars,
+    checkCarAvailability,
 };

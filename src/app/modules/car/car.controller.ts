@@ -68,7 +68,18 @@ const deleteACar: RequestHandler =catchAsync(async (req, res) => {
 }) ;
 
 
+const checkCarAvailability=catchAsync(async (req,res) => {
 
+  const queries = req.query
+  const result = await CarServices.checkCarAvailability(queries);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+  success: true,
+  message: "Cars availability checked successfully",
+  data: result
+  });
+})
 
 
 // ------------------------========================-----------------------------
@@ -78,5 +89,5 @@ export const CarControllers = {
   updateACar,
   deleteACar,
   getAllCars,
-
+  checkCarAvailability
 };

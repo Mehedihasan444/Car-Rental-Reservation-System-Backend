@@ -83,6 +83,11 @@ const carSchema = new mongoose_1.Schema({
         type: Number,
         required: true,
     },
+    currentLocation: {
+        type: String,
+        required: true,
+        default: "Chapainawabganj",
+    },
 }, {
     timestamps: true,
 });

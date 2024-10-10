@@ -29,11 +29,10 @@ const deleteACar = async (id: string) => {
 };
 // get all car from the database
 const getAllCars = async (payload: Record<string, unknown>) => {
-  // const result = await Car.find();
-  // return result;
+
   // Create a new QueryBuilder instance for the car query
   const carQuery = new QueryBuilder(Car.find({}), payload)
-    .search(["features",])
+    .search(["features"])
     .filter()
     .sort()
     .paginate();
@@ -56,10 +55,21 @@ const getAllCars = async (payload: Record<string, unknown>) => {
   };
 };
 
+// search available cars a car with a new value
+const checkCarAvailability = async (payload: Record<string, unknown>) => {
+  const result = await Car.find({
+    status: "available",
+    currentLocation: { $regex: payload.searchTerm, $options: "i" },
+  });
+
+  return result;
+};
+
 export const CarServices = {
   createCar,
   getACar,
   updateACar,
   deleteACar,
   getAllCars,
+  checkCarAvailability,
 };

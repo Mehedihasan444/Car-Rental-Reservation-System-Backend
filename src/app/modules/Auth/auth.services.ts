@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TUser } from "../user/user.interface";
 import { User } from "../user/user.model";
 import { TsigninUser } from "./auth.interface";
@@ -24,7 +25,11 @@ const signin = async (payload: TsigninUser) => {
   if (!user) {
     throw new Error("User not found");
   }
-
+  if (user?.status === "blocked") {
+    throw new Error("Your account has been blocked. Please contact support for assistance.");
+  }
+  
+  
   const passwordMatch = await isPasswordMatched(
     payload.password,
     user.password

@@ -75,7 +75,7 @@ const bookingSchema = new Schema<TBooking>({
     },
     drivingLicense:{
       type: String,
-      required: [true, "Driving license is required"],
+      // required: [true, "Driving license is required"],
     }
   },
   additionalFeatures:{
@@ -96,4 +96,19 @@ const bookingSchema = new Schema<TBooking>({
   timestamps: true,
 });
 
+// Pre-hook to prevent overlapping bookings
+bookingSchema.pre("save", async function (next) {
+  const conflictingBooking = await Booking.findOne({
+    car: this.car,
+    $or: [
+      { date: { $lt: this.returnDate, $gt: this.date } },
+      { returnDate: { $gt: this.date, $lt: this.returnDate } },
+    ],
+  });
+
+  if (conflictingBooking) {
+    throw new Error("The car is already booked during this time.");
+  }
+  next();
+});
 export const Booking = model<TBooking>("Booking",bookingSchema)

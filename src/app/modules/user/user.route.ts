@@ -8,6 +8,9 @@ import { UserControllers } from "./user.controller";
 
 const router = express.Router();
 
+// Get current user profile
+router.get("/me", auth(USER_ROLE.user, USER_ROLE.admin), UserControllers.getCurrentUser);
+
 router.get("/", auth(USER_ROLE.admin), UserControllers.getAllUsers);
 router.get("/:id", auth(USER_ROLE.user), UserControllers.getAUser);
 router.put(

@@ -17,6 +17,19 @@ const getAllUsers: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+//get current user (me)
+const getCurrentUser: RequestHandler = catchAsync(async (req, res) => {
+  const { email } = req.user; // Get user email from JWT token (set by auth middleware)
+  const result = await UserServices.getCurrentUser(email);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Current user is retrieved successfully",
+    data: result,
+  });
+});
+
 //get a single User
 const getAUser: RequestHandler = catchAsync(async (req, res) => {
   const result = await UserServices.getAUser(req.params.id);
@@ -62,8 +75,8 @@ const deleteAUser: RequestHandler =catchAsync(async (req, res) => {
 // ------------------------========================-----------------------------
 export const UserControllers = {
   getAUser,
+  getCurrentUser,
   updateAUser,
   deleteAUser,
   getAllUsers,
-
 };

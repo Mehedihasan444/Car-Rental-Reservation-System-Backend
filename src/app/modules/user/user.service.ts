@@ -30,8 +30,15 @@ const getAllUsers = async () => {
   return result;
 };
 
+// get current user by email from JWT token
+const getCurrentUser = async (email: string) => {
+  const result = await User.findOne({ email }).select('-password'); // Exclude password from response
+  return result;
+};
+
 export const UserServices = {
   getAUser,
+  getCurrentUser,
   updateAUser,
   deleteAUser,
   getAllUsers,

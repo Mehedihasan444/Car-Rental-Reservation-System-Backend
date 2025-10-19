@@ -32,7 +32,7 @@ const getAllCars = async (payload: Record<string, unknown>) => {
 
   // Create a new QueryBuilder instance for the car query
   const carQuery = new QueryBuilder(Car.find({}), payload)
-    .search(["features"])
+    .search(["name", "description", "brand", "model", "currentLocation"])
     .filter()
     .sort()
     .paginate();
@@ -42,7 +42,7 @@ const getAllCars = async (payload: Record<string, unknown>) => {
 
   // Create a separate query to count the total number of cars matching the filter criteria
   const countQuery = new QueryBuilder(Car.find({}), payload)
-    .search(["name", "description"])
+    .search(["name", "description", "brand", "model", "currentLocation"])
     .filter();
 
   // Execute the count query to get the total count
@@ -57,10 +57,17 @@ const getAllCars = async (payload: Record<string, unknown>) => {
 
 // search available cars a car with a new value
 const checkCarAvailability = async (payload: Record<string, unknown>) => {
-  const result = await Car.find({
+  // Build query object dynamically
+  const query: Record<string, unknown> = {
     status: "available",
-    currentLocation: { $regex: payload.searchTerm, $options: "i" },
-  });
+  };
+
+  // Only add currentLocation filter if searchTerm is provided and is a string
+  if (payload.searchTerm && typeof payload.searchTerm === 'string') {
+    query.currentLocation = { $regex: payload.searchTerm, $options: "i" };
+  }
+
+  const result = await Car.find(query);
 
   return result;
 };

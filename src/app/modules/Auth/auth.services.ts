@@ -62,8 +62,27 @@ const signin = async (payload: TsigninUser) => {
     refreshToken,
   };
 };
+const refreshAccessToken = async (refreshToken: string): Promise<string> => {
+  try {
+    const decoded = jwt.verify(refreshToken, config.jwt_refresh_secret as string) as jwt.JwtPayload;
+    const { email, role } = decoded;
+    // Optionally, check user existence/status
+    const user = await User.findOne({ email });
+    if (!user || user.status === "blocked") {
+      throw new Error("User not found or blocked");
+    }
+    const jwtPayload = { email, role };
+    const accessToken = jwt.sign(jwtPayload, config.jwt_access_secret as string, {
+      expiresIn: config.jwt_access_expires_in,
+    });
+    return accessToken;
+  } catch (error) {
+    throw new Error("Invalid refresh token");
+  }
+};
 
 export const AuthServices = {
   signup,
   signin,
+  refreshAccessToken,
 };

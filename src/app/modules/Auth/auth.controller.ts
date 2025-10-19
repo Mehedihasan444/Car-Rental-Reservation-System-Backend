@@ -35,8 +35,37 @@ const signin = catchAsync(async (req, res) => {
     token: accessToken,
   });
 });
+const refreshToken = catchAsync(async (req, res) => {
+  const token = req.cookies.refreshToken || req.body.refreshToken;
+  if (!token) {
+    return sendResponse(res, {
+      statusCode: httpStatus.UNAUTHORIZED,
+      success: false,
+      message: "Refresh token missing",
+      data: null,
+    });
+  }
+  try {
+    const accessToken = await AuthServices.refreshAccessToken(token);
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "Access token refreshed successfully!",
+      data: null,
+      token: accessToken,
+    });
+  } catch (error) {
+    sendResponse(res, {
+      statusCode: httpStatus.UNAUTHORIZED,
+      success: false,
+      message: "Invalid refresh token",
+      data: null,
+    });
+  }
+});
 
 export const authControllers = {
   signup,
   signin,
+  refreshToken,
 };

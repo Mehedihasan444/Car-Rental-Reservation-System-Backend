@@ -21,21 +21,26 @@ const auth = (...requiredRoles: TUserRole[]) => {
       token.split(" ")[1],
       config.jwt_access_secret as string
     ) as JwtPayload;
-    const { role, userEmail } = decoded;
+    const { role, email } = decoded;
+
+    const normalizedRole = typeof role === "string" ? (role.toLowerCase() as TUserRole) : (role as TUserRole);
 
     // checking if the user is exist
-    const user = await User.isUserExistsByEmail(userEmail);
+    const user = await User.isUserExistsByEmail(email);
     if (!user) {
       throw new AppError(httpStatus.NOT_FOUND, "This user is not found !");
     }
-    if (requiredRoles && !requiredRoles.includes(role)) {
+    if (requiredRoles.length && !requiredRoles.includes(normalizedRole)) {
       throw new AppError(
         httpStatus.UNAUTHORIZED,
         "You have no access to this route."
       );
     }
 
-    req.user = decoded as JwtPayload;
+    req.user = {
+      ...decoded,
+      role: normalizedRole,
+    } as JwtPayload;
     next();
   });
 };

@@ -1,5 +1,5 @@
 {
-  "name": "batch-3-assignment-2",
+  "name": "car-rental-reservation-system-server",
   "version": "1.0.0",
   "description": "**Objective:** Develop a Express application with TypeScript as the programming language, integrating MongoDB with Mongoose for effective data management. Ensure data integrity through validation using Joi/Zod.",
   "main": "./dist/server.js",

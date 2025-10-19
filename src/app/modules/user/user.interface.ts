@@ -7,6 +7,7 @@ export interface TUser {
   password: string;
   email: string;
   phone: string;
+  profileImage?: string;
   role: "admin" | "user";
   address: string;
   status: "active" | "blocked";

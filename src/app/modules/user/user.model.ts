@@ -17,6 +17,9 @@ const userSchema = new Schema<TUser, UserModel>(
       type: String,
       required: true,
     },
+    profileImage:{
+      type: String,
+    },
     address: {
       type: String,
       required: true,
